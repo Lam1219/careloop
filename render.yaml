@@ -70,6 +70,6 @@ services:
 
 databases:
   - name: careloop-db
-    plan: starter
+    plan: free
     databaseName: careloop
     user: careloop
