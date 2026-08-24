@@ -1,0 +1,41 @@
+name = "careloop-api"
+main = "src/index.ts"
+compatibility_date = "2026-01-01"
+
+# Replace with your actual domain or use the default workers.dev URL during development
+routes = [
+  { pattern = "api.yourdomain.ca", custom_domain = true }
+]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "careloop-db"
+database_id = "b25a37e8-8ad9-4059-b95b-0e1dd9f22cef"
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "c9bef1f9c1924464baf1709522f05eea"
+
+[[kv_namespaces]]
+binding = "LAUNCH_STATES"
+id = "ecb0cbcde1e3429bbbb02680ff4363b2"
+
+[[kv_namespaces]]
+binding = "CSRF"
+id = "46175cb7068f472f9210006d52f70fd5"
+
+[[r2_buckets]]
+binding = "DOCUMENTS"
+bucket_name = "careloop-documents"
+
+[[queues.producers]]
+queue = "careloop-fhir-sync"
+binding = "FHIR_SYNC_QUEUE"
+
+[[queues.consumers]]
+queue = "careloop-fhir-sync"
+max_batch_size = 10
+max_batch_timeout = 5
+
+[triggers]
+crons = ["0 10 * * *"]
